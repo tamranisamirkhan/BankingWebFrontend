@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyBank Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2 class="logo">My<span>Bank</span></h2>
+      <ul class="menu">
+        <li class="active">🏠 Dashboard</li>
+        <li>💸 Transfer</li>
+        <li>📜 Transactions</li>
+        <li>🏦 Deposit / Withdraw</li>
+        <li>⚙️ Settings</li>
+      </ul>
+      <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <h1>Welcome back, <span id="username">User</span> 👋</h1>
+        <p class="subtext">Here’s an overview of your banking activity.</p>
+      </header>
+
+      <section class="account-overview">
+        <div class="account-card glass-card">
+          <h3>Primary Account</h3>
+          <p><strong>Account No:</strong> <span id="accountNumber">Loading...</span></p>
+          <p><strong>Type:</strong> <span id="accountType">Savings</span></p>
+          <p><strong>Status:</strong> <span id="accountStatus">Active</span></p>
+          <div class="balance">
+            <h2>$<span id="balance">0.00</span></h2>
+            <p>Available Balance</p>
+          </div>
+        </div>
+
+        <div class="quick-actions glass-card">
+          <h3>Quick Actions</h3>
+          <button class="action-btn" onclick="window.location.href='../pages/transfer.html'">💸 Transfer Money</button>
+          <button class="action-btn">🏦 Deposit Funds</button>
+          <button class="action-btn">📥 Withdraw</button>
+        </div>
+      </section>
+
+      <section class="transactions-section">
+        <h2>Recent Transactions</h2>
+        <table class="transaction-table glass-card">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="transactions">
+            <tr><td colspan="5">Loading transactions...</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+   <script src="../js/logout.js" defer></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBank - Activate Online Banking</title>
+  <link rel="stylesheet" href="../css/register.css" />
+</head>
+<body>
+  <div class="register-wrapper">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Smart<span>Bank</span></h1>
+        <p>Activate your online banking account</p>
+      </div>
+
+      <form id="registerForm" class="form-body">
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="accountNumber">Account Number</label>
+            <input type="text" id="accountNumber" placeholder="Enter your 12-digit account number" required />
+          </div>
+
+          <div class="input-group">
+            <label for="cifNumber">CIF Number</label>
+            <input type="text" id="cifNumber" placeholder="Enter your CIF number" required />
+          </div>
+
+          <div class="input-group">
+            <label for="branchCode">Branch Code</label>
+            <input type="text" id="branchCode" placeholder="Enter your branch code" required />
+          </div>
+
+          <div class="input-group">
+            <label for="country">Country</label>
+            <select id="country" required>
+              <option value="">Select your country</option>
+              <option value="IN">India</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="mobileNumber">Registered Mobile Number</label>
+            <input type="tel" id="mobileNumber" placeholder="+91 XXXXX XXXXX" required />
+          </div>
+
+          <div class="input-group">
+            <label for="email">Registered Email Address</label>
+            <input type="email" id="email" placeholder="Enter your registered email address" required />
+          </div>
+        </div>
+
+        <div class="btn-section">
+          <button type="submit" class="register-btn">Verify & Register</button>
+        </div>
+      </form>
+
+      <div class="footer-links">
+        <p>Already registered? <a href="login.html">Login here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/register.js"></script>
+</body>
+</html>

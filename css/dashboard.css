@@ -1,0 +1,168 @@
+/* GLOBAL STYLES */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #004e92, #000428);
+  margin: 0;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+}
+
+.dashboard {
+  display: flex;
+  width: 100%;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 230px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.8em;
+  color: #fff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.logo span {
+  color: #00d4ff;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.3s ease;
+}
+
+.menu li:hover,
+.menu li.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.logout-btn {
+  background-color: #ff4b5c;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #ff6b81;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.subtext {
+  color: #cfcfcf;
+  font-size: 0.9em;
+  margin-bottom: 30px;
+}
+
+/* ACCOUNT OVERVIEW */
+.account-overview {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.account-card {
+  flex: 1;
+  min-width: 300px;
+}
+
+.balance {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.balance h2 {
+  font-size: 2em;
+  margin: 0;
+  color: #00ffb3;
+}
+
+/* QUICK ACTIONS */
+.quick-actions {
+  flex: 1;
+  min-width: 250px;
+}
+
+.action-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #004e92;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #0078d7;
+}
+
+/* TRANSACTIONS TABLE */
+.transactions-section {
+  margin-top: 40px;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.transaction-table th {
+  color: #00d4ff;
+}
+
+.transaction-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

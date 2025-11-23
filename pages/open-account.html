@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Account | SmartBank</title>
+  <link rel="stylesheet" href="../css/open-account.css">
+</head>
+<body>
+  <!-- 🔹 Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="../assets/logo.png" alt="SmartBank Logo" onerror="this.style.display='none'">
+        <span>Smart<span>Bank</span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🔹 Account Opening Form Section -->
+  <section class="open-account-section">
+    <div class="form-card">
+      <h1 class="form-heading">Open a New Account</h1>
+      <p class="form-subtitle">Join SmartBank — the future of intelligent banking.</p>
+
+      <form id="openAccountForm">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="bod">Date of Birth</label>
+            <input type="date" id="bod" name="bod" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="10-digit mobile number" maxlength="10" required>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="address">Address</label>
+          <textarea id="address" name="address" placeholder="Street, Area, Landmark" rows="3" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="Enter your city" required>
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" placeholder="Enter your state" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="Enter your country" required>
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" placeholder="6-digit PIN" maxlength="6" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="aadharNumber">Aadhar Number</label>
+            <input type="text" id="aadharNumber" name="aadharNumber" placeholder="12-digit Aadhar number" maxlength="12" required>
+          </div>
+          <div class="form-group">
+            <label for="panNumber">PAN Number</label>
+            <input type="text" id="panNumber" name="panNumber" placeholder="ABCDE1234F" maxlength="10" required>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Application</button>
+      </form>
+    </div>
+  </section>
+
+<script src="../js/open-account.js"></script>
+
+</body>
+</html>

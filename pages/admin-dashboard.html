@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard — SmartBank</title>
+  <link rel="stylesheet" href="../css/admin-dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <h2 class="logo">smart<span>Bank</span></h2>
+        <nav>
+          <ul class="menu">
+            <li id="overviewMenu" class="menu-item active">Overview</li>
+            <li id="usersMenu" class="menu-item">Manage Users</li>
+            <li id="accountsMenu" class="menu-item">Accounts</li>
+            <li id="transactionsMenu" class="menu-item">Transactions</li>
+            <li id="loansMenu" class="menu-item">Loans</li>
+            <li id="reportsMenu" class="menu-item">Reports</li>
+            <li id="notificationsMenu" class="menu-item">Notifications</li>
+            <li id="settingsMenu" class="menu-item">System Settings</li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+        <small class="version">v1.0 • SmartBank</small>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- HEADER -->
+      <header class="header">
+        <div>
+          <h1 id="pageTitle">Overview</h1>
+          <p class="subtext" id="pageSubtitle">Welcome back, Admin — system snapshot.</p>
+        </div>
+        <div class="header-actions">
+          <input id="globalSearch" placeholder="Search customers, accounts..." />
+          <button class="icon-btn">🔔</button>
+        </div>
+      </header>
+
+      <!-- OVERVIEW -->
+      <section id="overviewSection" class="section visible">
+        <div class="cards">
+          <div class="card">
+            <h4>Total Customers</h4>
+            <p class="card-value" id="totalCustomers">--</p>
+          </div>
+          <div class="card">
+            <h4>Total Accounts</h4>
+            <p class="card-value" id="totalAccounts">--</p>
+          </div>
+          <div class="card">
+            <h4>Pending Requests</h4>
+            <p class="card-value" id="pendingRequests">--</p>
+          </div>
+          <div class="card">
+            <h4>Active Loans</h4>
+            <p class="card-value" id="activeLoans">--</p>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="action-btn" id="addUserBtn">Add New User</button>
+          <button class="action-btn" id="viewTxBtn">View Transactions</button>
+          <button class="action-btn" id="genReportBtn">Generate Report</button>
+        </div>
+
+        <div class="panel">
+          <h3>Recent Activity</h3>
+          <table class="table compact">
+            <thead>
+              <tr><th>Date</th><th>Action</th><th>User</th><th>Result</th></tr>
+            </thead>
+            <tbody id="recentActivityBody">
+              <tr><td colspan="4">No activity yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+     <!-- MANAGE USERS -->
+<section id="usersSection" class="section" style="display:none;">
+  <div class="section-head">
+    <h2>Manage Users</h2>
+    <div class="filters">
+      <button class="filter-btn active" data-filter="PENDING">Pending</button>
+      <button class="filter-btn" data-filter="APPROVED">Approved</button>
+      <button class="filter-btn" data-filter="ACTIVE">Active</button>
+      <button class="filter-btn" data-filter="INACTIVE">Inactive</button>
+      <button class="filter-btn" data-filter="REJECTED">Rejected</button>
+      <button id="reloadCustomers" class="action-btn small">Reload</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <table class="table" id="customerTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody id="customerTableBody">
+        <tr><td colspan="8">No data loaded</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- === MODAL FOR FULL DETAILS === -->
+  <div id="customerModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close-btn">&times;</span>
+      <h2>Customer Details</h2>
+      <div id="customerDetails" class="details-grid"></div>
+      <div id="modalActions" class="modal-actions"></div>
+    </div>
+  </div>
+</section>
+
+
+      <!-- ACCOUNTS -->
+      <section id="accountsSection" class="section" style="display:none;">
+        <h2>Accounts</h2>
+        <div class="panel">
+          <p>Account management (open, freeze, close) will appear here.</p>
+        </div>
+      </section>
+
+      <!-- TRANSACTIONS -->
+      <section id="transactionsSection" class="section" style="display:none;">
+        <h2>Transactions</h2>
+        <div class="panel">
+          <table class="table" id="transactionTable">
+            <thead><tr><th>ID</th><th>Account</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody><tr><td colspan="6">No transactions</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LOANS -->
+      <section id="loansSection" class="section" style="display:none;">
+        <h2>Loans</h2>
+        <div class="panel">Loan requests & approvals will appear here.</div>
+      </section>
+
+      <!-- REPORTS -->
+      <section id="reportsSection" class="section" style="display:none;">
+        <h2>Reports</h2>
+        <div class="panel">Charts and downloadable reports go here.</div>
+      </section>
+
+      <!-- NOTIFICATIONS -->
+      <section id="notificationsSection" class="section" style="display:none;">
+        <h2>Notifications</h2>
+        <div class="panel">
+          <form id="notifyForm">
+            <label>Send to (email or account no)</label>
+            <input id="notifyTo" required />
+            <label>Subject</label>
+            <input id="notifySubject" required />
+            <label>Message</label>
+            <textarea id="notifyMessage" rows="5" required></textarea>
+            <button type="submit" class="action-btn">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settingsSection" class="section" style="display:none;">
+        <h2>System Settings</h2>
+        <div class="panel">
+          <p>Manage admin staff, roles and audit logs from here.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JS placeholders (we will implement later) -->
+  <script src="../js/logout.js" defer></script>
+  <script src="../js/admin-dashboard.js" defer></script>
+</body>
+</html>
