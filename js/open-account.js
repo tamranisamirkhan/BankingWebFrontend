@@ -1,18 +1,18 @@
-// open-account.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("openAccountForm");
 
-  // 🔹 Helper: Popup Message
+  // 🔹 Popup Message Box
   function showPopup(message, type) {
     const popup = document.createElement("div");
     popup.className = `popup ${type}`;
     popup.textContent = message;
+
     document.body.appendChild(popup);
+
     setTimeout(() => popup.remove(), 4000);
   }
 
-  // 🔹 Helper: Validate Form Fields
+  // 🔹 Validate Inputs
   function validateForm(data) {
     if (!/^\d{10}$/.test(data.phoneNumber)) {
       showPopup("📱 Invalid phone number (must be 10 digits)", "error");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showPopup("🪪 Invalid Aadhar number (must be 12 digits)", "error");
       return false;
     }
-    if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.panNumber)) {
+    if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(data.panNumber)) {
       showPopup("🧾 Invalid PAN number format", "error");
       return false;
     }
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Gather data
     const customerData = {
       fullName: document.getElementById("fullName").value.trim(),
       bod: document.getElementById("bod").value,
@@ -53,28 +52,42 @@ document.addEventListener("DOMContentLoaded", () => {
       aadharNumber: document.getElementById("aadharNumber").value.trim()
     };
 
-    // Validate before sending
+    // Validate Fields
     if (!validateForm(customerData)) return;
 
     try {
-      // Send data to backend
       const response = await fetch("http://51.20.82.164:8080/smartBank/customer/createCustomer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(customerData)
       });
 
-      const result = await response.text();
+      const result = await response.json();
 
-      if (result.includes("Customer saved successfully")) {
-        showPopup("🎉 Registration successful! We'll verify your details soon.", "success");
+      // SUCCESS
+      if (response.status === 201 || result.status === "CREATED") {
+        showPopup("🎉 Registration successful! A confirmation email has been sent.", "success");
+
+        setTimeout(() => {
+          window.location.href = "../index.html";
+        }, 2500);
+
         form.reset();
-      } else {
-        showPopup("⚠️ Submission failed. Please verify your inputs.", "error");
+        return;
       }
+
+      // ERROR HANDLING
+      if (response.status === 409) {
+        showPopup(`⚠️ ${result.data}`, "error");
+        return;
+      }
+
+      // UNKNOWN ERROR
+      showPopup("⚠️ Something went wrong. Try again.", "error");
+
     } catch (error) {
-      console.error("Error:", error);
-      showPopup("❌ Server connection failed. Try again later.", "error");
+      console.error(error);
+      showPopup("❌ Server error. Please try again later.", "error");
     }
   });
 });

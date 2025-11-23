@@ -1,202 +1,28 @@
-/* ✅ SmartBank Account Opening Page (Polished UI) */
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #004e92, #000428);
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 🔹 Navigation Bar */
-.navbar {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
+/* 🔹 Popup Messages */
+.popup {
   position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 12px 60px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
-  z-index: 1000;
-}
-
-.nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  font-size: 1.6em;
-  font-weight: bold;
-  color: #fff;
-  letter-spacing: 0.5px;
-}
-
-.logo img {
-  height: 42px;
-  width: 42px;
-  margin-right: 12px;
-  border-radius: 50%;
-}
-
-.logo span span {
-  color: #00b4db;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #00b4db;
-}
-
-/* 🔹 Form Section */
-.open-account-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 140px;
-  padding-bottom: 80px;
-}
-
-/* 🔹 Form Card */
-.form-card {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(18px);
-  border-radius: 20px;
-  padding: 40px 60px;
-  max-width: 980px;
-  width: 92%;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
-  animation: fadeIn 0.8s ease-in-out;
-}
-
-.form-heading {
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 6px;
-  color: #ffffff;
-}
-
-.form-subtitle {
-  text-align: center;
-  font-size: 1em;
-  color: #cbd5e1;
-  margin-bottom: 30px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.form-row {
-  display: flex;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-
-.form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.full-width {
-  width: 100%;
-}
-
-label {
-  font-weight: 500;
-  color: #e2e8f0;
-  margin-bottom: 8px;
-}
-
-input, select, textarea {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-size: 1em;
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  transition: box-shadow 0.3s ease;
-}
-
-input:focus, select:focus, textarea:focus {
-  box-shadow: 0 0 10px #00b4db;
-}
-
-/* 🔹 Submit Button */
-.submit-btn {
-  background: linear-gradient(90deg, #00b4db, #004e92);
+  top: 20px;
+  right: 20px;
+  padding: 14px 22px;
+  border-radius: 8px;
   color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  animation: fadeInOut 4s ease forwards;
+  z-index: 9999;
 }
 
-.submit-btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(0, 180, 219, 0.6);
+.popup.success {
+  background: #2ecc71;
 }
 
-/* 🔹 Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.popup.error {
+  background: #e74c3c;
 }
 
-/* 🔹 Responsive Design */
-@media (max-width: 768px) {
-  .form-card {
-    padding: 30px 25px;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-
-  .navbar {
-    padding: 10px 25px;
-  }
-
-  nav ul {
-    gap: 18px;
-  }
-
-  .logo {
-    font-size: 1.3em;
-  }
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
 }
