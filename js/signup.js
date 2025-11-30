@@ -20,7 +20,7 @@ document.getElementById("signupForm").addEventListener("submit", function(e) {
         return;
     }
 
-    fetch("http://51.20.82.164:8080/smartBank/customer/createCustomer", {
+    fetch("http://smartbankofficial.online/smartBank/customer/createCustomer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)

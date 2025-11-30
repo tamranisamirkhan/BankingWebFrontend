@@ -11,7 +11,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   const loginData = { usernameOrEmail, password };
 
-  fetch("http://51.20.82.164:8080/smartBank/user/login", {
+  fetch("https://smartbankofficial.online/smartBank/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

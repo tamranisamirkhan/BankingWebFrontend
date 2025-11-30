@@ -5,7 +5,7 @@
 async function logoutUser() {
   try {
     // Send logout request to backend
-    const response = await fetch("http://51.20.82.164:8080/smartBank/user/logout", {
+    const response = await fetch("http://smartbankofficial.online/smartBank/user/logout", {
       method: "POST",
       credentials: "include", // include cookies
     });
@@ -22,7 +22,7 @@ async function logoutUser() {
       preventBackNavigation();
 
       // Redirect to homepage (index.html)
-      window.location.replace("http://localhost:5500/BankingWebAppFrontEnd/index.html");
+      window.location.replace("https://smartbankofficial.netlify.app/index.html");
 
     } else {
       alert("⚠️ Logout failed. Please try again.");
