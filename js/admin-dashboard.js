@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tableBody.innerHTML = "<tr><td colspan='8'>Loading...</td></tr>";
 
     try {
-      const url = `http://smartbankofficial.online/smartBank/admin/getAllCustomer?status=${currentFilter}`;
+      const url = `https://smartbankofficial.online/smartBank/admin/getAllCustomer?status=${currentFilter}`;
       const res = await fetch(url, { method: "GET", credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch");
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res = await fetch(`http://smartbankofficial.online/smartBank/admin/${endpoint}`, { method, credentials: "include" });
+      const res = await fetch(`https://smartbankofficial.online/smartBank/admin/${endpoint}`, { method, credentials: "include" });
       const msg = await res.text();
       alert(msg);
       modal.style.display = "none";
