@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modalActions.innerHTML = "";
     if (c.status === "PENDING") {
-      modalActions.appendChild(createActionButton("Approve", "#28a745", () => updateStatus(c.id, "APPROVE")));
+      modalActions.appendChild(createActionButton("Approve", "#28a745", () => updateStatus(c.id, "APPROVED")));
       modalActions.appendChild(createActionButton("Reject", "#d9534f", () => updateStatus(c.id, "REJECT")));
     } else if (c.status === "ACTIVE") {
       modalActions.appendChild(createActionButton("Deactivate", "#ffc107", () => updateStatus(c.id, "INACTIVE")));
