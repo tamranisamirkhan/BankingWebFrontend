@@ -5,7 +5,7 @@
 async function logoutUser() {
   try {
     // Send logout request to backend
-    const response = await fetch("http://smartbankofficial.online/smartBank/user/logout", {
+    const response = await fetch("https://smartbankofficial.online/smartBank/user/logout", {
       method: "POST",
       credentials: "include", // include cookies
     });
