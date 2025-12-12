@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Upload - SmartBank</title>
+    <link rel="stylesheet" href="../css/kyc-upload.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>KYC Verification</h2>
+    <p class="subtitle">Upload your Aadhaar and PAN card for identity verification.</p>
+
+    <div class="note">
+        <strong>Important:</strong> Only JPG/PNG images allowed. Maximum size: <strong>300 KB</strong> per file.
+    </div>
+
+    <form id="kycForm">
+
+        <!-- Aadhaar Front -->
+        <div class="field">
+            <label>Aadhaar Front Image</label>
+            <input type="file" id="aadhaarFront" accept="image/*" required>
+            <small class="desc">Upload the front side of your Aadhaar card.</small>
+            <img id="previewFront" class="preview hidden" />
+        </div>
+
+        <!-- Aadhaar Back -->
+        <div class="field">
+            <label>Aadhaar Back Image</label>
+            <input type="file" id="aadhaarBack" accept="image/*" required>
+            <small class="desc">Upload the back side of your Aadhaar card.</small>
+            <img id="previewBack" class="preview hidden" />
+        </div>
+
+        <!-- PAN Card -->
+        <div class="field">
+            <label>PAN Card Image</label>
+            <input type="file" id="panCard" accept="image/*" required>
+            <small class="desc">Upload your PAN card for verification.</small>
+            <img id="previewPan" class="preview hidden" />
+        </div>
+
+        <button type="submit" class="submitBtn">Submit KYC</button>
+    </form>
+</div>
+
+<script src="../js/kyc-upload.js"></script>
+</body>
+</html>
