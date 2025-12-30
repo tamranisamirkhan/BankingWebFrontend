@@ -10,6 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewBack = document.getElementById("previewBack");
     const previewPan = document.getElementById("previewPan");
 
+    // 🔐 Read KYC token from URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (!token) {
+        alert("Invalid or expired KYC link.");
+        return;
+    }
+
     // Preview and size validation
     function validateAndPreview(input, preview) {
         const file = input.files[0];
@@ -27,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Preview
         const reader = new FileReader();
         reader.onload = () => {
             preview.src = reader.result;
@@ -44,33 +52,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("kycForm").addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const params = new URLSearchParams(window.location.search);
-        const customerId = params.get("customerId");
-
-        if (!customerId) {
-            alert("Customer ID missing. Please register first.");
+        if (!front.files[0] || !back.files[0] || !pan.files[0]) {
+            alert("Please upload all required documents.");
             return;
         }
 
         const formData = new FormData();
-        formData.append("customerId", customerId);
+        formData.append("token", token);
         formData.append("aadhaarFront", front.files[0]);
         formData.append("aadhaarBack", back.files[0]);
         formData.append("panCard", pan.files[0]);
 
         try {
             const res = await fetch(
-                "https://smartbankofficial.online/smartBank/customer/kyc/upload",
+                "https://smartbankofficial.online/smartBank/customer/upload/kyc",
                 {
                     method: "POST",
                     body: formData
                 }
             );
 
-            alert(await res.text());
+            const message = await res.text();
+            alert(message);
+
         } catch (error) {
             console.error(error);
-            alert("Upload failed. Try again.");
+            alert("Upload failed. Please try again later.");
         }
     });
 
