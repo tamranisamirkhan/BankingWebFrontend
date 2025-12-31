@@ -13,36 +13,37 @@
     <p class="subtitle">Upload your Aadhaar and PAN card for identity verification.</p>
 
     <div class="note">
-        <strong>Important:</strong> Only JPG/PNG images allowed. Maximum size: <strong>300 KB</strong> per file.
+        <strong>Important:</strong>
+        Only JPG/PNG images allowed. Maximum size: <strong>300 KB</strong> per file.
+        <br>
+        <strong>Note:</strong> This secure link is valid for a limited time.
     </div>
 
-    <form id="kycForm">
+    <p id="statusMessage" class="status"></p>
 
-        <!-- Aadhaar Front -->
+    <form id="kycForm" enctype="multipart/form-data">
+
         <div class="field">
             <label>Aadhaar Front Image</label>
             <input type="file" id="aadhaarFront" accept="image/*" required>
-            <small class="desc">Upload the front side of your Aadhaar card.</small>
             <img id="previewFront" class="preview hidden" />
         </div>
 
-        <!-- Aadhaar Back -->
         <div class="field">
             <label>Aadhaar Back Image</label>
             <input type="file" id="aadhaarBack" accept="image/*" required>
-            <small class="desc">Upload the back side of your Aadhaar card.</small>
             <img id="previewBack" class="preview hidden" />
         </div>
 
-        <!-- PAN Card -->
         <div class="field">
             <label>PAN Card Image</label>
             <input type="file" id="panCard" accept="image/*" required>
-            <small class="desc">Upload your PAN card for verification.</small>
             <img id="previewPan" class="preview hidden" />
         </div>
 
-        <button type="submit" class="submitBtn">Submit KYC</button>
+        <button type="submit" id="submitBtn" class="submitBtn">
+            Submit KYC
+        </button>
     </form>
 </div>
 
