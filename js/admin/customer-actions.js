@@ -7,6 +7,7 @@ export async function updateStatus(id, action) {
   switch (action) {
     case "APPROVE": endpoint = `approveCustomer/${id}`; break;
     case "REJECT": endpoint = `rejectCustomer/${id}`; break;
+
   }
 
   try {
