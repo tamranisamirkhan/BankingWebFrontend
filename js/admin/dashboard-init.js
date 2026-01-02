@@ -3,7 +3,7 @@
 import { setupNavigation } from "./navigation.js";
 import { setupFilters, highlightFilter } from "./filters.js";
 import { loadCustomers } from "./customer-list.js";
-import { setupModal, openModal } from "./customer-modal.js";
+
 
 window.loadCustomers = loadCustomers;
 
@@ -32,17 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup modules
   setupNavigation(sectionMap, showSection, updateHeader, () => loadCustomers(currentFilter));
   setupFilters(filterButtons, setFilter, () => loadCustomers(currentFilter));
-  setupModal();
 
-  // Table row "View" button — event delegation
-  document.getElementById("customerTableBody").addEventListener("click", async e => {
-    if (e.target.classList.contains("view-btn")) {
-      const id = e.target.dataset.id;
-      const list = await loadCustomers(currentFilter);
-      const customer = list.find(x => x.id == id);
-      openModal(customer);
-    }
-  });
 
   // Default load
   showSection("overviewSection");

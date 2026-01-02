@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KYC Review — SmartBank Admin</title>
+  <link rel="stylesheet" href="../css/admin-dashboard.css" />
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar (reuse same sidebar for consistency) -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <h2 class="logo">smart<span>Bank</span></h2>
+      <ul class="menu">
+        <li class="menu-item" onclick="location.href='admin-dashboard.html'">← Back to Dashboard</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <header class="header">
+      <div>
+        <h1>KYC Review</h1>
+        <p class="subtext">Review customer identity documents carefully</p>
+      </div>
+    </header>
+
+    <!-- CUSTOMER DETAILS -->
+    <section class="panel">
+      <h3>Customer Information</h3>
+      <div id="customerInfo" class="details-grid"></div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="panel">
+      <h3>KYC Documents</h3>
+      <div class="details-grid">
+        <div>
+          <strong>Aadhaar Front</strong><br>
+          <img id="aadhaarFrontImg" width="100%" />
+        </div>
+        <div>
+          <strong>Aadhaar Back</strong><br>
+          <img id="aadhaarBackImg" width="100%" />
+        </div>
+        <div>
+          <strong>PAN Card</strong><br>
+          <img id="panImg" width="100%" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="panel">
+      <h3>Admin Decision</h3>
+      <textarea id="rejectReason" rows="4" placeholder="Reason (required if rejecting)"></textarea>
+      <br><br>
+      <button class="action-btn" id="approveBtn">Approve KYC</button>
+      <button class="action-btn" style="background:#e55353" id="rejectBtn">Reject KYC</button>
+    </section>
+
+  </main>
+</div>
+
+<script type="module" src="../js/admin/admin-kyc-review.js"></script>
+</body>
+</html>

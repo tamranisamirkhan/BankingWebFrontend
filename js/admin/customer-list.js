@@ -40,7 +40,7 @@ export function renderCustomers(customers) {
       <td>${c.phoneNumber || "-"}</td>
       <td>${c.email || "-"}</td>
       <td>${c.address || "-"}</td>
-      <td><button class="action-btn view-btn" data-id="${c.id}">View</button></td>
+      <td><button class="action-btn review-btn" data-id="${c.id}">Review</button></td>
     `;
     tableBody.appendChild(tr);
   });

@@ -91,18 +91,20 @@
      <!-- MANAGE USERS -->
 <section id="usersSection" class="section" style="display:none;">
   <div class="section-head">
-    <h2>Manage Users</h2>
+    <h2>KYC Queue</h2>
+    <p class="subtext">Review and verify customer KYC submissions</p>
     <div class="filters">
-      <button class="filter-btn active" data-filter="PENDING">Pending</button>
-      <button class="filter-btn" data-filter="APPROVED">Approved</button>
-      <button class="filter-btn" data-filter="ACTIVE">Active</button>
-      <button class="filter-btn" data-filter="INACTIVE">Inactive</button>
+
+      <button class="filter-btn active" data-filter="SUBMITTED">Submitted</button>
+      <button class="filter-btn" data-filter="VERIFIED">Verified</button>
       <button class="filter-btn" data-filter="REJECTED">Rejected</button>
       <button id="reloadCustomers" class="action-btn small">Reload</button>
+
     </div>
   </div>
 
   <div class="panel">
+    
     <table class="table" id="customerTable">
       <thead>
         <tr>
@@ -122,15 +124,6 @@
     </table>
   </div>
 
-  <!-- === MODAL FOR FULL DETAILS === -->
-  <div id="customerModal" class="modal">
-    <div class="modal-content">
-      <span id="closeModal" class="close-btn">&times;</span>
-      <h2>Customer Details</h2>
-      <div id="customerDetails" class="details-grid"></div>
-      <div id="modalActions" class="modal-actions"></div>
-    </div>
-  </div>
 </section>
 
 
