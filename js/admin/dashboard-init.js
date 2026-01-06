@@ -5,7 +5,7 @@ import { setupFilters, highlightFilter } from "./filters.js";
 import { loadCustomers } from "./customer-list.js";
 
 
-window.loadCustomers = loadCustomers;
+window.loadCustomer = loadCustomers;
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Admin Dashboard Loaded");
@@ -22,7 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
     settingsMenu: "settingsSection"
   };
 
-  let currentFilter = "PENDING";
+  let currentFilter = "SUBMITTED";
+  loadCustomers(currentFilter);
+
+  highlightFilter(
+    document.querySelectorAll(".filter-btn"),
+    "SUBMITTED"
+);
+
+
   const filterButtons = document.querySelectorAll(".filter-btn");
 
   function setFilter(f) {
