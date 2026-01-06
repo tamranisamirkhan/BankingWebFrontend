@@ -3,80 +3,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("openAccountForm");
 
-    // Show popup message
     function showPopup(message, type) {
         const popup = document.createElement("div");
         popup.className = `popup ${type}`;
         popup.textContent = message;
         document.body.appendChild(popup);
-        setTimeout(() => popup.remove(), 3000);
+        setTimeout(() => popup.remove(), 3500);
     }
 
-    // Validate input fields
     function validateForm(data) {
         if (!data.fullName || data.fullName.length < 3) {
             showPopup("Full Name must be at least 3 characters", "error");
             return false;
         }
-
         if (!/^\d{10}$/.test(data.phoneNumber)) {
-            showPopup("Invalid Phone Number (must be 10 digits)", "error");
+            showPopup("Invalid Phone Number", "error");
             return false;
         }
-
         if (!/^\d{12}$/.test(data.aadharNumber)) {
-            showPopup("Invalid Aadhaar Number (must be 12 digits)", "error");
+            showPopup("Invalid Aadhaar Number", "error");
             return false;
         }
-
         if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(data.panNumber)) {
             showPopup("Invalid PAN Format (ABCDE1234F)", "error");
             return false;
         }
-
         if (!/^\d{6}$/.test(data.pincode)) {
-            showPopup("Invalid Pincode (6 digits required)", "error");
+            showPopup("Invalid Pincode", "error");
             return false;
         }
-
-        if (!data.email.includes("@") || !data.email.includes(".")) {
+        if (!data.email.includes("@")) {
             showPopup("Invalid Email Address", "error");
             return false;
         }
-
         if (!data.address || data.address.length < 5) {
-            showPopup("Address must be at least 5 characters", "error");
+            showPopup("Invalid Address", "error");
             return false;
         }
-
-        if (!data.city) {
-            showPopup("City is required", "error");
+        if (!data.city || !data.state || !data.country || !data.bod) {
+            showPopup("All fields are required", "error");
             return false;
         }
-
-        if (!data.state) {
-            showPopup("State is required", "error");
-            return false;
-        }
-
-        if (!data.country) {
-            showPopup("Country is required", "error");
-            return false;
-        }
-
-        if (!data.bod) {
-            showPopup("Date of Birth is required", "error");
-            return false;
-        }
-
-        return true; // All validations passed
+        return true;
     }
 
-    // Submit form
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Gather inputs
         const customerData = {
             fullName: form.fullName.value.trim(),
             bod: form.bod.value,
@@ -92,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
             panNumber: form.panNumber.value.trim()
         };
 
-        // Validate user input
         if (!validateForm(customerData)) return;
 
         try {
@@ -107,25 +79,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await response.json();
 
-            // Success: Customer created and customerId returned
-            if ((response.status === 200 || response.status === 201) && result.data != null) {
-                const customerId = result.data;
-                showPopup("Registration Successful! Redirecting to KYC...", "success");
+            if (response.ok) {
+                showPopup(
+                    "Application submitted successfully. Please check your email to complete KYC.",
+                    "success"
+                );
 
                 setTimeout(() => {
-                    window.location.href = `../pages/kyc-upload.html?customerId=${customerId}`;
-                }, 1500);
+                    window.location.href = "../pages/account-created.html";
+                }, 2000);
 
                 return;
             }
 
-            // Conflict: Duplicate Aadhaar / PAN / Email
             if (response.status === 409) {
                 showPopup(result.data, "error");
                 return;
             }
 
-            showPopup("Something went wrong. Try again.", "error");
+            showPopup("Something went wrong. Please try again.", "error");
 
         } catch (error) {
             console.error(error);
