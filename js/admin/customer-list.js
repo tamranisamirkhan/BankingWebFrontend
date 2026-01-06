@@ -5,7 +5,7 @@ export async function loadCustomers(currentFilter) {
   tableBody.innerHTML = "<tr><td colspan='8'>Loading...</td></tr>";
 
   try {
-    const url = `https://smartbankofficial.online/smartBank/admin/getAllCustomer?status=${currentFilter}`;
+    const url = `https://smartbankofficial.online/smartBank/admin/kyc?status=${currentFilter}`;
     const res = await fetch(url, { method: "GET", credentials: "include" });
 
     if (!res.ok) throw new Error("Failed to fetch");
