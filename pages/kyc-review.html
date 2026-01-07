@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KYC Review — SmartBank</title>
+  <link rel="stylesheet" href="../css/admin-dashboard.css" />
+</head>
+<body>
+
+<div class="main-content">
+  <h1>KYC Review</h1>
+  <p class="subtext">Verify customer documents and details</p>
+
+  <!-- CUSTOMER DETAILS -->
+  <div class="panel">
+    <h3>Customer Details</h3>
+    <div id="customerDetails" class="details-grid"></div>
+  </div>
+
+  <!-- DOCUMENTS -->
+  <div class="panel">
+    <h3>KYC Documents</h3>
+    <div class="doc-grid">
+      <div>
+        <p>Aadhaar Front</p>
+        <img id="aadhaarFront" />
+      </div>
+      <div>
+        <p>Aadhaar Back</p>
+        <img id="aadhaarBack" />
+      </div>
+      <div>
+        <p>PAN Card</p>
+        <img id="panCard" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="panel">
+    <h3>Decision</h3>
+    <textarea id="rejectReason" placeholder="Reason (required if rejecting)"></textarea>
+    <br><br>
+    <button class="action-btn" id="approveBtn">Approve</button>
+    <button class="action-btn" id="rejectBtn">Reject</button>
+  </div>
+</div>
+
+<script type="module" src="../js/admin/kyc-review.js"></script>
+</body>
+</html>

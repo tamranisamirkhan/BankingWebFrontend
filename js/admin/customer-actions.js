@@ -22,7 +22,7 @@ export async function updateStatus(id, action) {
     document.getElementById("customerModal").style.display = "none";
 
     // Refresh list
-    window.loadCustomers();
+    window.loadCustomer();
 
   } catch (e) {
     alert("❌ " + e.message);
