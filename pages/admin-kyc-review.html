@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <title>KYC Review — SmartBank Admin</title>
+
+  <!-- Reuse dashboard styles -->
   <link rel="stylesheet" href="../css/admin-dashboard.css" />
+  <!-- NEW CSS -->
+  <link rel="stylesheet" href="../css/admin-kyc-review.css" />
 </head>
 <body>
 
 <div class="dashboard">
 
-  <!-- Sidebar (reuse same sidebar for consistency) -->
+  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-top">
       <h2 class="logo">smart<span>Bank</span></h2>
       <ul class="menu">
-        <li class="menu-item" onclick="location.href='admin-dashboard.html'">← Back to Dashboard</li>
+        <li class="menu-item" onclick="location.href='admin-dashboard.html'">
+          ← Back to Dashboard
+        </li>
       </ul>
     </div>
   </aside>
@@ -32,35 +38,53 @@
     <!-- CUSTOMER DETAILS -->
     <section class="panel">
       <h3>Customer Information</h3>
-      <div id="customerInfo" class="details-grid"></div>
+
+      <div class="details-grid">
+        <div><strong>Name:</strong> <span id="custName"></span></div>
+        <div><strong>Email:</strong> <span id="custEmail"></span></div>
+        <div><strong>Phone:</strong> <span id="custPhone"></span></div>
+        <div><strong>DOB:</strong> <span id="custDob"></span></div>
+        <div><strong>Address:</strong> <span id="custAddress"></span></div>
+        <div><strong>KYC Status:</strong> <span id="custStatus"></span></div>
+      </div>
     </section>
 
     <!-- DOCUMENTS -->
     <section class="panel">
       <h3>KYC Documents</h3>
-      <div class="details-grid">
+
+      <div class="kyc-docs">
         <div>
-          <strong>Aadhaar Front</strong><br>
-          <img id="aadhaarFrontImg" width="100%" />
+          <strong>Aadhaar Front</strong>
+          <img id="aadhaarFront" />
         </div>
+
         <div>
-          <strong>Aadhaar Back</strong><br>
-          <img id="aadhaarBackImg" width="100%" />
+          <strong>Aadhaar Back</strong>
+          <img id="aadhaarBack" />
         </div>
+
         <div>
-          <strong>PAN Card</strong><br>
-          <img id="panImg" width="100%" />
+          <strong>PAN Card</strong>
+          <img id="panCard" />
         </div>
       </div>
     </section>
 
-    <!-- ACTIONS -->
-    <section class="panel">
+    <!-- ACTIONS (ONLY FOR SUBMITTED) -->
+    <section class="panel" id="decisionBox">
       <h3>Admin Decision</h3>
-      <textarea id="rejectReason" rows="4" placeholder="Reason (required if rejecting)"></textarea>
+
+      <textarea
+        id="rejectReason"
+        rows="4"
+        placeholder="Reason (required if rejecting)"
+      ></textarea>
+
       <br><br>
+
       <button class="action-btn" id="approveBtn">Approve KYC</button>
-      <button class="action-btn" style="background:#e55353" id="rejectBtn">Reject KYC</button>
+      <button class="action-btn danger" id="rejectBtn">Reject KYC</button>
     </section>
 
   </main>

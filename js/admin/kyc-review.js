@@ -1,5 +1,3 @@
-// kyc-review.js
-
 const params = new URLSearchParams(window.location.search);
 const customerId = params.get("id");
 
@@ -8,36 +6,31 @@ if (!customerId) {
   window.location.href = "admin-dashboard.html";
 }
 
-// Base admin KYC URL
 const BASE_URL = "https://smartbankofficial.online/smartBank/admin/kyc";
 
 /* ================= LOAD DETAILS ================= */
 
 async function loadKycDetails() {
-  const res = await fetch(
-    `${BASE_URL}/${customerId}`,
-    { credentials: "include" }
-  );
+  const res = await fetch(`${BASE_URL}/${customerId}`, {
+    credentials: "include"
+  });
 
   if (!res.ok) {
     alert("Failed to load KYC data");
-    window.location.href = "admin-dashboard.html";
     return;
   }
 
   const data = await res.json();
 
-  // Customer details
-  document.getElementById("customerDetails").innerHTML = `
-    <div><strong>Name:</strong> ${data.fullName}</div>
-    <div><strong>Email:</strong> ${data.email}</div>
-    <div><strong>Phone:</strong> ${data.phoneNumber}</div>
-    <div><strong>DOB:</strong> ${data.bod}</div>
-    <div><strong>Address:</strong> ${data.address}</div>
-    <div><strong>KYC Status:</strong> ${data.kycStatus}</div>
-  `;
+  // Populate details
+  document.getElementById("custName").innerText = data.fullName;
+  document.getElementById("custEmail").innerText = data.email;
+  document.getElementById("custPhone").innerText = data.phoneNumber;
+  document.getElementById("custDob").innerText = data.bod;
+  document.getElementById("custAddress").innerText = data.address;
+  document.getElementById("custStatus").innerText = data.kycStatus;
 
-  // 🔐 Secure document streaming (BANK-GRADE)
+  // Load documents (secure streaming)
   document.getElementById("aadhaarFront").src =
     `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
 
@@ -46,21 +39,23 @@ async function loadKycDetails() {
 
   document.getElementById("panCard").src =
     `${BASE_URL}/${customerId}/document/PAN`;
+
+  // Show decision buttons ONLY for SUBMITTED
+  const decisionBox = document.getElementById("decisionBox");
+  if (data.kycStatus !== "SUBMITTED") {
+    decisionBox.style.display = "none";
+  }
 }
 
 /* ================= APPROVE ================= */
 
 document.getElementById("approveBtn").onclick = async () => {
-  const confirmed = confirm("Are you sure you want to APPROVE this KYC?");
-  if (!confirmed) return;
+  if (!confirm("Approve this KYC?")) return;
 
-  const res = await fetch(
-    `${BASE_URL}/${customerId}/approve`,
-    {
-      method: "POST",
-      credentials: "include"
-    }
-  );
+  const res = await fetch(`${BASE_URL}/${customerId}/approve`, {
+    method: "POST",
+    credentials: "include"
+  });
 
   if (res.ok) {
     alert("KYC approved successfully");
@@ -74,24 +69,19 @@ document.getElementById("approveBtn").onclick = async () => {
 
 document.getElementById("rejectBtn").onclick = async () => {
   const reason = document.getElementById("rejectReason").value.trim();
-
   if (!reason) {
     alert("Rejection reason is required");
     return;
   }
 
-  const confirmed = confirm("Are you sure you want to REJECT this KYC?");
-  if (!confirmed) return;
+  if (!confirm("Reject this KYC?")) return;
 
-  const res = await fetch(
-    `${BASE_URL}/${customerId}/reject`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reason })
-    }
-  );
+  const res = await fetch(`${BASE_URL}/${customerId}/reject`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reason })
+  });
 
   if (res.ok) {
     alert("KYC rejected successfully");
@@ -101,5 +91,4 @@ document.getElementById("rejectBtn").onclick = async () => {
   }
 };
 
-// Init
 loadKycDetails();
