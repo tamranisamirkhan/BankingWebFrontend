@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <title>KYC Review — SmartBank Admin</title>
 
-  <!-- Reuse dashboard styles -->
+  <!-- Existing dashboard styles -->
   <link rel="stylesheet" href="../css/admin-dashboard.css" />
-  <!-- NEW CSS -->
+  <!-- NEW review-specific styles -->
   <link rel="stylesheet" href="../css/admin-kyc-review.css" />
 </head>
 <body>
@@ -38,15 +38,7 @@
     <!-- CUSTOMER DETAILS -->
     <section class="panel">
       <h3>Customer Information</h3>
-
-      <div class="details-grid">
-        <div><strong>Name:</strong> <span id="custName"></span></div>
-        <div><strong>Email:</strong> <span id="custEmail"></span></div>
-        <div><strong>Phone:</strong> <span id="custPhone"></span></div>
-        <div><strong>DOB:</strong> <span id="custDob"></span></div>
-        <div><strong>Address:</strong> <span id="custAddress"></span></div>
-        <div><strong>KYC Status:</strong> <span id="custStatus"></span></div>
-      </div>
+      <div id="customerInfo" class="details-grid"></div>
     </section>
 
     <!-- DOCUMENTS -->
@@ -56,22 +48,22 @@
       <div class="kyc-docs">
         <div>
           <strong>Aadhaar Front</strong>
-          <img id="aadhaarFront" />
+          <img id="aadhaarFrontImg" />
         </div>
 
         <div>
           <strong>Aadhaar Back</strong>
-          <img id="aadhaarBack" />
+          <img id="aadhaarBackImg" />
         </div>
 
         <div>
           <strong>PAN Card</strong>
-          <img id="panCard" />
+          <img id="panImg" />
         </div>
       </div>
     </section>
 
-    <!-- ACTIONS (ONLY FOR SUBMITTED) -->
+    <!-- ACTIONS -->
     <section class="panel" id="decisionBox">
       <h3>Admin Decision</h3>
 

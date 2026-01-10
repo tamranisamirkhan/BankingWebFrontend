@@ -8,7 +8,7 @@ if (!customerId) {
 
 const BASE_URL = "https://smartbankofficial.online/smartBank/admin/kyc";
 
-/* ================= LOAD DETAILS ================= */
+/* ================= LOAD KYC DETAILS ================= */
 
 async function loadKycDetails() {
   const res = await fetch(`${BASE_URL}/${customerId}`, {
@@ -22,28 +22,30 @@ async function loadKycDetails() {
 
   const data = await res.json();
 
-  // Populate details
-  document.getElementById("custName").innerText = data.fullName;
-  document.getElementById("custEmail").innerText = data.email;
-  document.getElementById("custPhone").innerText = data.phoneNumber;
-  document.getElementById("custDob").innerText = data.bod;
-  document.getElementById("custAddress").innerText = data.address;
-  document.getElementById("custStatus").innerText = data.kycStatus;
+  // ✅ Render customer details dynamically
+  const infoDiv = document.getElementById("customerInfo");
+  infoDiv.innerHTML = `
+    <div><strong>Name:</strong> ${data.fullName}</div>
+    <div><strong>Email:</strong> ${data.email}</div>
+    <div><strong>Phone:</strong> ${data.phoneNumber}</div>
+    <div><strong>DOB:</strong> ${data.bod}</div>
+    <div><strong>Address:</strong> ${data.address}</div>
+    <div><strong>KYC Status:</strong> ${data.kycStatus}</div>
+  `;
 
-  // Load documents (secure streaming)
-  document.getElementById("aadhaarFront").src =
+  // ✅ Load documents securely
+  document.getElementById("aadhaarFrontImg").src =
     `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
 
-  document.getElementById("aadhaarBack").src =
+  document.getElementById("aadhaarBackImg").src =
     `${BASE_URL}/${customerId}/document/AADHAAR_BACK`;
 
-  document.getElementById("panCard").src =
+  document.getElementById("panImg").src =
     `${BASE_URL}/${customerId}/document/PAN`;
 
-  // Show decision buttons ONLY for SUBMITTED
-  const decisionBox = document.getElementById("decisionBox");
+  // ✅ Hide actions if not SUBMITTED
   if (data.kycStatus !== "SUBMITTED") {
-    decisionBox.style.display = "none";
+    document.getElementById("decisionBox").style.display = "none";
   }
 }
 
@@ -69,6 +71,7 @@ document.getElementById("approveBtn").onclick = async () => {
 
 document.getElementById("rejectBtn").onclick = async () => {
   const reason = document.getElementById("rejectReason").value.trim();
+
   if (!reason) {
     alert("Rejection reason is required");
     return;
