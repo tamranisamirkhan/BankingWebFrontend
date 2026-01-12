@@ -8,32 +8,31 @@ if (!customerId) {
 
 const BASE_URL = "https://smartbankofficial.online/smartBank/admin/kyc";
 
-/* ================= LOAD KYC DETAILS ================= */
-
 async function loadKycDetails() {
   const res = await fetch(`${BASE_URL}/${customerId}`, {
     credentials: "include"
   });
 
   if (!res.ok) {
-    alert("Failed to load KYC data");
+    alert("Failed to load KYC details");
     return;
   }
 
   const data = await res.json();
 
-  // ✅ Render customer details dynamically
-  const infoDiv = document.getElementById("customerInfo");
-  infoDiv.innerHTML = `
-    <div><strong>Name:</strong> ${data.fullName}</div>
-    <div><strong>Email:</strong> ${data.email}</div>
-    <div><strong>Phone:</strong> ${data.phoneNumber}</div>
-    <div><strong>DOB:</strong> ${data.bod}</div>
-    <div><strong>Address:</strong> ${data.address}</div>
-    <div><strong>KYC Status:</strong> ${data.kycStatus}</div>
-  `;
+  // Map DTO → UI (EXACT MATCH)
+  document.getElementById("custName").innerText = data.fullName;
+  document.getElementById("custEmail").innerText = data.email;
+  document.getElementById("custPhone").innerText = data.phoneNumber;
+  document.getElementById("custAddress").innerText = data.address;
+  document.getElementById("custKycStatus").innerText = data.kycStatus;
+  document.getElementById("custAccountStatus").innerText = data.customerStatus ?? "-";
 
-  // ✅ Load documents securely
+  // Format Date (DTO uses java.util.Date)
+  document.getElementById("custDob").innerText =
+    data.bod ? new Date(data.bod).toLocaleDateString() : "-";
+
+  // Secure image streaming (NO URL in DTO)
   document.getElementById("aadhaarFrontImg").src =
     `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
 
@@ -43,14 +42,15 @@ async function loadKycDetails() {
   document.getElementById("panImg").src =
     `${BASE_URL}/${customerId}/document/PAN`;
 
-  // ✅ Hide actions if not SUBMITTED
+  // Lock actions if not SUBMITTED
   if (data.kycStatus !== "SUBMITTED") {
-    document.getElementById("decisionBox").style.display = "none";
+    document.getElementById("approveBtn").disabled = true;
+    document.getElementById("rejectBtn").disabled = true;
+    document.getElementById("rejectReason").disabled = true;
   }
 }
 
-/* ================= APPROVE ================= */
-
+/* ========= APPROVE ========= */
 document.getElementById("approveBtn").onclick = async () => {
   if (!confirm("Approve this KYC?")) return;
 
@@ -60,20 +60,18 @@ document.getElementById("approveBtn").onclick = async () => {
   });
 
   if (res.ok) {
-    alert("KYC approved successfully");
+    alert("KYC approved");
     window.location.href = "admin-dashboard.html";
   } else {
-    alert("Failed to approve KYC");
+    alert("Approval failed");
   }
 };
 
-/* ================= REJECT ================= */
-
+/* ========= REJECT ========= */
 document.getElementById("rejectBtn").onclick = async () => {
   const reason = document.getElementById("rejectReason").value.trim();
-
   if (!reason) {
-    alert("Rejection reason is required");
+    alert("Rejection reason required");
     return;
   }
 
@@ -87,10 +85,10 @@ document.getElementById("rejectBtn").onclick = async () => {
   });
 
   if (res.ok) {
-    alert("KYC rejected successfully");
+    alert("KYC rejected");
     window.location.href = "admin-dashboard.html";
   } else {
-    alert("Failed to reject KYC");
+    alert("Rejection failed");
   }
 };
 

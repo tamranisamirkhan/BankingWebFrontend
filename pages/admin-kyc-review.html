@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KYC Review — SmartBank Admin</title>
 
   <!-- Existing dashboard styles -->
   <link rel="stylesheet" href="../css/admin-dashboard.css" />
-  <!-- NEW review-specific styles -->
+  <!-- Review-specific styles -->
   <link rel="stylesheet" href="../css/admin-kyc-review.css" />
 </head>
 <body>
@@ -25,63 +26,75 @@
     </div>
   </aside>
 
-  <!-- Main -->
+  <!-- Main Content -->
   <main class="main-content">
 
+    <!-- Header -->
     <header class="header">
       <div>
         <h1>KYC Review</h1>
-        <p class="subtext">Review customer identity documents carefully</p>
+        <p class="subtext">Review customer identity details and documents</p>
       </div>
     </header>
 
-    <!-- CUSTOMER DETAILS -->
+    <!-- ================= CUSTOMER DETAILS ================= -->
     <section class="panel">
       <h3>Customer Information</h3>
-      <div id="customerInfo" class="details-grid"></div>
+
+      <div class="details-grid">
+        <div><strong>Name:</strong> <span id="custName"></span></div>
+        <div><strong>Email:</strong> <span id="custEmail"></span></div>
+        <div><strong>Phone:</strong> <span id="custPhone"></span></div>
+        <div><strong>Date of Birth:</strong> <span id="custDob"></span></div>
+        <div><strong>Address:</strong> <span id="custAddress"></span></div>
+        <div><strong>KYC Status:</strong> <span id="custKycStatus"></span></div>
+        <div><strong>Account Status:</strong> <span id="custAccountStatus"></span></div>
+      </div>
     </section>
 
-    <!-- DOCUMENTS -->
+    <!-- ================= DOCUMENTS ================= -->
     <section class="panel">
       <h3>KYC Documents</h3>
 
       <div class="kyc-docs">
-        <div>
+        <div class="doc-box">
           <strong>Aadhaar Front</strong>
-          <img id="aadhaarFrontImg" />
+          <img id="aadhaarFrontImg" alt="Aadhaar Front"/>
         </div>
 
-        <div>
+        <div class="doc-box">
           <strong>Aadhaar Back</strong>
-          <img id="aadhaarBackImg" />
+          <img id="aadhaarBackImg" alt="Aadhaar Back"/>
         </div>
 
-        <div>
+        <div class="doc-box">
           <strong>PAN Card</strong>
-          <img id="panImg" />
+          <img id="panImg" alt="PAN Card"/>
         </div>
       </div>
     </section>
 
-    <!-- ACTIONS -->
+    <!-- ================= ACTIONS ================= -->
     <section class="panel" id="decisionBox">
       <h3>Admin Decision</h3>
 
       <textarea
         id="rejectReason"
         rows="4"
-        placeholder="Reason (required if rejecting)"
+        placeholder="Rejection reason (required if rejecting)"
       ></textarea>
 
-      <br><br>
-
-      <button class="action-btn" id="approveBtn">Approve KYC</button>
-      <button class="action-btn danger" id="rejectBtn">Reject KYC</button>
+      <div class="action-row">
+        <button class="action-btn" id="approveBtn">Approve KYC</button>
+        <button class="action-btn danger" id="rejectBtn">Reject KYC</button>
+      </div>
     </section>
 
   </main>
 </div>
 
-<script type="module" src="../js/admin/kyc-review.js"></script>
+<!-- KYC Review Script -->
+<script type="module" src="/js/admin/kyc-review.js"></script>
+
 </body>
 </html>
