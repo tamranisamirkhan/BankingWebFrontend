@@ -20,6 +20,7 @@ export async function loadCustomers(currentFilter) {
     return customers;
 
   } catch (e) {
+    console.error(e);
     tableBody.innerHTML =
       "<tr><td colspan='8'>❌ Error loading customers</td></tr>";
     return [];
@@ -37,7 +38,13 @@ export function renderCustomers(customers) {
   }
 
   customers.forEach(c => {
-    const customerId = c.customerId; // ✅ FIXED
+    // ✅ NORMALIZE ID (this is the key)
+    const customerId = c.customerId ?? c.id;
+
+    if (!customerId) {
+      console.warn("Customer without ID:", c);
+      return;
+    }
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
