@@ -1,11 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 🔒 HARD PAGE GUARD (MOST IMPORTANT FIX)
-  if (!document.getElementById("custName")) {
-    console.warn("kyc-review.js loaded on non-KYC page. Aborting.");
-    return;
-  }
-
   const params = new URLSearchParams(window.location.search);
   const customerId = params.get("id");
 
@@ -28,7 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const data = await res.json();
+      const rawData = await res.json();
+
+      // ✅ normalize bod → dob
+      const data = {
+        ...rawData,
+        dob: rawData.bod
+      };
 
       document.getElementById("custName").innerText = data.fullName ?? "-";
       document.getElementById("custEmail").innerText = data.email ?? "-";
@@ -37,9 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("custKycStatus").innerText = data.kycStatus ?? "-";
       document.getElementById("custAccountStatus").innerText = data.customerStatus ?? "-";
 
-      // ✅ BACKEND FIELD IS bod (NOT dob)
       document.getElementById("custDob").innerText =
-        data.bod ? new Date(data.bod).toLocaleDateString() : "-";
+        data.dob ? new Date(data.dob).toLocaleDateString() : "-";
 
       document.getElementById("aadhaarFrontImg").src =
         `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
@@ -59,46 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Unexpected error while loading KYC");
     }
   }
-
-  document.getElementById("approveBtn").onclick = async () => {
-    if (!confirm("Approve this KYC?")) return;
-
-    const res = await fetch(`${BASE_URL}/${customerId}/approve`, {
-      method: "POST",
-      credentials: "include"
-    });
-
-    if (res.ok) {
-      alert("KYC approved");
-      window.location.href = "admin-dashboard.html";
-    } else {
-      alert("Approval failed");
-    }
-  };
-
-  document.getElementById("rejectBtn").onclick = async () => {
-    const reason = document.getElementById("rejectReason").value.trim();
-    if (!reason) {
-      alert("Rejection reason required");
-      return;
-    }
-
-    if (!confirm("Reject this KYC?")) return;
-
-    const res = await fetch(`${BASE_URL}/${customerId}/reject`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reason })
-    });
-
-    if (res.ok) {
-      alert("KYC rejected");
-      window.location.href = "admin-dashboard.html";
-    } else {
-      alert("Rejection failed");
-    }
-  };
 
   loadKycDetails();
 });
