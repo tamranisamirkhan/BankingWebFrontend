@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  // 🔒 HARD PAGE GUARD (MOST IMPORTANT FIX)
+  if (!document.getElementById("custName")) {
+    console.warn("kyc-review.js loaded on non-KYC page. Aborting.");
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const customerId = params.get("id");
 
@@ -24,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await res.json();
 
-      // ================= MAP DTO → UI =================
       document.getElementById("custName").innerText = data.fullName ?? "-";
       document.getElementById("custEmail").innerText = data.email ?? "-";
       document.getElementById("custPhone").innerText = data.phoneNumber ?? "-";
@@ -32,21 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("custKycStatus").innerText = data.kycStatus ?? "-";
       document.getElementById("custAccountStatus").innerText = data.customerStatus ?? "-";
 
-      // Correct DTO field: dob
+      // ✅ BACKEND FIELD IS bod (NOT dob)
       document.getElementById("custDob").innerText =
-        data.dob ? new Date(data.dob).toLocaleDateString() : "-";
+        data.bod ? new Date(data.bod).toLocaleDateString() : "-";
 
-      // ================= DOCUMENT STREAMING =================
       document.getElementById("aadhaarFrontImg").src =
         `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
-
       document.getElementById("aadhaarBackImg").src =
         `${BASE_URL}/${customerId}/document/AADHAAR_BACK`;
-
       document.getElementById("panImg").src =
         `${BASE_URL}/${customerId}/document/PAN`;
 
-      // ================= LOCK ACTIONS =================
       if (data.kycStatus !== "SUBMITTED") {
         document.getElementById("approveBtn").disabled = true;
         document.getElementById("rejectBtn").disabled = true;
@@ -59,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ================= APPROVE =================
   document.getElementById("approveBtn").onclick = async () => {
     if (!confirm("Approve this KYC?")) return;
 
@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // ================= REJECT =================
   document.getElementById("rejectBtn").onclick = async () => {
     const reason = document.getElementById("rejectReason").value.trim();
     if (!reason) {
