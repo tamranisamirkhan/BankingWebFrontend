@@ -1,15 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  // ---------- helpers ----------
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (!el) {
+      console.error(`Missing element: ${id}`);
+      return;
+    }
+    el.innerText = value;
+  }
+
+  function setImg(id, src) {
+    const el = document.getElementById(id);
+    if (!el) {
+      console.error(`Missing image: ${id}`);
+      return;
+    }
+    el.src = src;
+  }
+
+  // ---------- read ID ----------
   const params = new URLSearchParams(window.location.search);
   const customerId = params.get("id");
 
   if (!customerId) {
     alert("Invalid request");
-    window.location.href = "admin-dashboard.html";
     return;
   }
 
-  const BASE_URL = "https://smartbankofficial.online/smartBank/admin/kyc";
+  const BASE_URL =
+    "https://smartbankofficial.online/smartBank/admin/kyc";
 
   async function loadKycDetails() {
     try {
@@ -17,45 +37,37 @@ document.addEventListener("DOMContentLoaded", () => {
         credentials: "include"
       });
 
-      if (!res.ok) {
-        alert("Failed to load KYC details");
-        return;
-      }
+      if (!res.ok) throw new Error("API error");
 
-      const rawData = await res.json();
+      const raw = await res.json();
 
-      // ✅ normalize bod → dob
+      // ✅ normalize backend fields
       const data = {
-        ...rawData,
-        dob: rawData.bod
+        ...raw,
+        dob: raw.bod
       };
 
-      document.getElementById("custName").innerText = data.fullName ?? "-";
-      document.getElementById("custEmail").innerText = data.email ?? "-";
-      document.getElementById("custPhone").innerText = data.phoneNumber ?? "-";
-      document.getElementById("custAddress").innerText = data.address ?? "-";
-      document.getElementById("custKycStatus").innerText = data.kycStatus ?? "-";
-      document.getElementById("custAccountStatus").innerText = data.customerStatus ?? "-";
+      setText("custName", data.fullName ?? "-");
+      setText("custEmail", data.email ?? "-");
+      setText("custPhone", data.phoneNumber ?? "-");
+      setText("custAddress", data.address ?? "-");
+      setText("custKycStatus", data.kycStatus ?? "-");
+      setText("custAccountStatus", data.customerStatus ?? "-");
+      setText(
+        "custDob",
+        data.dob ? new Date(data.dob).toLocaleDateString() : "-"
+      );
 
-      document.getElementById("custDob").innerText =
-        data.dob ? new Date(data.dob).toLocaleDateString() : "-";
-
-      document.getElementById("aadhaarFrontImg").src =
-        `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`;
-      document.getElementById("aadhaarBackImg").src =
-        `${BASE_URL}/${customerId}/document/AADHAAR_BACK`;
-      document.getElementById("panImg").src =
-        `${BASE_URL}/${customerId}/document/PAN`;
-
-      if (data.kycStatus !== "SUBMITTED") {
-        document.getElementById("approveBtn").disabled = true;
-        document.getElementById("rejectBtn").disabled = true;
-        document.getElementById("rejectReason").disabled = true;
-      }
+      setImg("aadhaarFrontImg",
+        `${BASE_URL}/${customerId}/document/AADHAAR_FRONT`);
+      setImg("aadhaarBackImg",
+        `${BASE_URL}/${customerId}/document/AADHAAR_BACK`);
+      setImg("panImg",
+        `${BASE_URL}/${customerId}/document/PAN`);
 
     } catch (err) {
       console.error(err);
-      alert("Unexpected error while loading KYC");
+      alert("Failed to load KYC details");
     }
   }
 

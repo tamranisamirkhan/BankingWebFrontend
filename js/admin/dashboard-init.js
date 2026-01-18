@@ -7,9 +7,7 @@ import { loadCustomers } from "./customer-list.js";
 window.loadCustomers = loadCustomers;
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Admin Dashboard Loaded");
 
-  // Section map
   const sectionMap = {
     overviewMenu: "overviewSection",
     usersMenu: "usersSection",
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     settingsMenu: "settingsSection"
   };
 
-  // Default filter
   let currentFilter = "SUBMITTED";
   loadCustomers(currentFilter);
 
@@ -36,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentFilter = f;
   }
 
-  // Setup navigation & filters
   setupNavigation(
     sectionMap,
     showSection,
@@ -50,34 +46,26 @@ document.addEventListener("DOMContentLoaded", () => {
     () => loadCustomers(currentFilter)
   );
 
-  // ✅ STEP 5: Handle Review button click
   document
     .getElementById("customerTableBody")
-    .addEventListener("click", (e) => {
-
+    .addEventListener("click", e => {
       if (e.target.classList.contains("review-btn")) {
         const customerId = e.target.dataset.id;
-
         window.location.href =
           `../pages/kyc-review.html?id=${customerId}`;
       }
     });
 
-  // Default section
   showSection("overviewSection");
 });
 
 function showSection(id) {
-  document
-    .querySelectorAll(".section")
+  document.querySelectorAll(".section")
     .forEach(s => (s.style.display = "none"));
-
   document.getElementById(id).style.display = "block";
 }
 
 function updateHeader(menuId) {
-  const title =
+  document.getElementById("pageTitle").textContent =
     document.getElementById(menuId).textContent.trim();
-
-  document.getElementById("pageTitle").textContent = title;
 }

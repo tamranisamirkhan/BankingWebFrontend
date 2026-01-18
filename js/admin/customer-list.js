@@ -13,14 +13,14 @@ export async function loadCustomers(currentFilter) {
       credentials: "include"
     });
 
-    if (!res.ok) throw new Error("Failed to fetch");
+    if (!res.ok) throw new Error("Failed to fetch customers");
 
     const customers = await res.json();
     renderCustomers(customers);
     return customers;
 
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     tableBody.innerHTML =
       "<tr><td colspan='8'>❌ Error loading customers</td></tr>";
     return [];
@@ -31,30 +31,27 @@ export function renderCustomers(customers) {
   const tableBody = document.getElementById("customerTableBody");
   tableBody.innerHTML = "";
 
-  if (!customers.length) {
+  if (!customers || !customers.length) {
     tableBody.innerHTML =
-      "<tr><td colspan='8'>No customers found.</td></tr>";
+      "<tr><td colspan='8'>No customers found</td></tr>";
     return;
   }
 
   customers.forEach(c => {
-    // ✅ NORMALIZE ID (this is the key)
+    // ✅ normalize ID (works for id or customerId)
     const customerId = c.customerId ?? c.id;
 
-    if (!customerId) {
-      console.warn("Customer without ID:", c);
-      return;
-    }
+    if (!customerId) return;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${customerId}</td>
-      <td>${c.fullName || "-"}</td>
+      <td>${c.fullName ?? "-"}</td>
       <td>${c.bod ? new Date(c.bod).toLocaleDateString() : "-"}</td>
-      <td>${c.gender || "-"}</td>
-      <td>${c.phoneNumber || "-"}</td>
-      <td>${c.email || "-"}</td>
-      <td>${c.address || "-"}</td>
+      <td>${c.gender ?? "-"}</td>
+      <td>${c.phoneNumber ?? "-"}</td>
+      <td>${c.email ?? "-"}</td>
+      <td>${c.address ?? "-"}</td>
       <td>
         <button
           class="action-btn small review-btn"
