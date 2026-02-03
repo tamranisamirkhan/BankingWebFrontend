@@ -1,61 +1,89 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   // Fetch account data
-//   fetch("http://localhost:8080/api/accounts/me", {
-//     method: "GET",
-//     credentials: "include"
-//   })
-//     .then(response => {
-//       if (!response.ok) throw new Error("Unauthorized");
-//       return response.json();
-//     })
-//     .then(data => {
-//       document.getElementById("username").textContent = data.user.username;
-//       document.getElementById("accountNumber").textContent = data.accountNumber;
-//       document.getElementById("balance").textContent = data.balance.toFixed(2);
-//       document.getElementById("accountType").textContent = data.accountType;
-//       document.getElementById("accountStatus").textContent = data.status;
-//       loadTransactions();
-//     })
-//     .catch(() => {
-//       alert("Session expired! Please log in again.");
-//       window.location.href = "../login.html";
-//     });
+document.addEventListener("DOMContentLoaded", () => {
 
-//   // Fetch transactions (sample API)
-//   function loadTransactions() {
-//     fetch("http://localhost:8080/api/transactions/recent", {
-//       method: "GET",
-//       credentials: "include"
-//     })
-//       .then(response => response.json())
-//       .then(transactions => {
-//         const tbody = document.getElementById("transactions");
-//         tbody.innerHTML = "";
-//         transactions.forEach(tx => {
-//           const row = document.createElement("tr");
-//           row.innerHTML = `
-//             <td>${tx.date}</td>
-//             <td>${tx.description}</td>
-//             <td>${tx.type}</td>
-//             <td>$${tx.amount.toFixed(2)}</td>
-//             <td>${tx.status}</td>
-//           `;
-//           tbody.appendChild(row);
-//         });
-//       })
-//       .catch(() => {
-//         document.getElementById("transactions").innerHTML =
-//           "<tr><td colspan='5'>No transactions found</td></tr>";
-//       });
-//   }
+    fetch("https://smartbankofficial.online/smartBank/customer/dashboard", {
+        method: "GET",
+        credentials: "include",   // 🔴 very important
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(async res => {
 
-//   // Logout
-//   document.getElementById("logoutBtn").addEventListener("click", () => {
-//     fetch("http://localhost:8080/user/auth/logout", {
-//       method: "POST",
-//       credentials: "include"
-//     }).finally(() => {
-//       window.location.href = "../login.html";
-//     });
-//   });
-// });
+            if (res.status === 401 || res.status === 403) {
+                window.location.href = "../pages/login.html";
+                return;
+            }
+
+            return res.json();
+        })
+        .then(response => {
+
+            if (!response || !response.data) {
+                showEmptyTransactions();
+                return;
+            }
+
+            const dashboard = response.data;
+
+            // Header
+            document.getElementById("username").textContent =
+                dashboard.user.fullName;
+
+            // Account card
+            document.getElementById("accountNumber").textContent =
+                dashboard.account.accountNumberMasked;
+
+            document.getElementById("accountType").textContent =
+                dashboard.account.accountType;
+
+            document.getElementById("accountStatus").textContent =
+                dashboard.account.accountStatus;
+
+            document.getElementById("balance").textContent =
+                Number(dashboard.account.balance).toFixed(2);
+
+            // Recent transactions
+            renderTransactions(dashboard.recentTransactions);
+        })
+        .catch(err => {
+            console.error(err);
+            showEmptyTransactions();
+        });
+
+    function renderTransactions(transactions) {
+
+        const tbody = document.getElementById("transactions");
+        tbody.innerHTML = "";
+
+        if (!transactions || transactions.length === 0) {
+            showEmptyTransactions();
+            return;
+        }
+
+        transactions.forEach(tx => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${formatDate(tx.transactionDate)}</td>
+                <td>${tx.description}</td>
+                <td>${tx.type}</td>
+                <td>₹${Number(tx.amount).toFixed(2)}</td>
+                <td>${tx.status}</td>
+            `;
+
+            tbody.appendChild(row);
+        });
+    }
+
+    function showEmptyTransactions() {
+        const tbody = document.getElementById("transactions");
+        tbody.innerHTML =
+            "<tr><td colspan='5'>No transactions found.</td></tr>";
+    }
+
+    function formatDate(dateStr) {
+        return dateStr; // yyyy-MM-dd
+    }
+
+});

@@ -9,16 +9,56 @@
 
 <div class="container">
     <h2 class="title">Activate Your SmartBank Account</h2>
-    <p class="subtitle">Set your username and password to complete activation.</p>
+    <p class="subtitle">
+        Set your login password and transaction PIN to complete activation.
+    </p>
 
     <form id="activationForm" class="form-card">
 
-        <input type="text" id="username" placeholder="Choose a username" required>
-        <input type="password" id="password" placeholder="Create password" required>
+        <!-- Password -->
+        <input
+            type="password"
+            id="password"
+            placeholder="Create Login Password"
+            required
+        >
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Login Password"
+            required
+        >
+
+        <small class="hint">
+            Password must be at least 8 characters and include uppercase,
+            lowercase, number, and special character.
+        </small>
+
+        <!-- Transaction PIN -->
+        <input
+            type="password"
+            id="transactionPin"
+            placeholder="Create Transaction PIN (4–6 digits)"
+            maxlength="6"
+            required
+        >
+
+        <input
+            type="password"
+            id="confirmTransactionPin"
+            placeholder="Confirm Transaction PIN"
+            maxlength="6"
+            required
+        >
+
+        <small class="hint">
+            Transaction PIN will be required for transfers and sensitive actions.
+        </small>
 
         <button type="submit" class="btn">Activate Account</button>
 
-        <p id="message"></p>
+        <p id="message" class="message"></p>
     </form>
 </div>
 
