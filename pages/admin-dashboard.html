@@ -16,7 +16,10 @@
         <nav>
           <ul class="menu">
             <li id="overviewMenu" class="menu-item active">Overview</li>
-            <li id="usersMenu" class="menu-item">KYC Queue</li>
+            <li id="onboardingMenu" class="menu-item">Onboarding Queue</li>
+            <li id="kycMenu" class="menu-item">KYC Queue</li>
+            <li id="customersMenu" class="menu-item">Customers</li>
+            <li id="manageUsersMenu" class="menu-item">Manage Users</li>
             <li id="accountsMenu" class="menu-item">Accounts</li>
             <li id="transactionsMenu" class="menu-item">Transactions</li>
             <li id="loansMenu" class="menu-item">Loans</li>
@@ -60,132 +63,141 @@
             <p class="card-value" id="totalAccounts">--</p>
           </div>
           <div class="card">
-            <h4>Pending Requests</h4>
-            <p class="card-value" id="pendingRequests">--</p>
+            <h4>Pending Onboarding</h4>
+            <p class="card-value" id="pendingOnboarding">--</p>
           </div>
           <div class="card">
-            <h4>Active Loans</h4>
-            <p class="card-value" id="activeLoans">--</p>
+            <h4>KYC Pending Review</h4>
+            <p class="card-value" id="pendingKyc">--</p>
           </div>
         </div>
+      </section>
 
-        <div class="quick-actions">
-          <button class="action-btn" id="addUserBtn">Add New User</button>
-          <button class="action-btn" id="viewTxBtn">View Transactions</button>
-          <button class="action-btn" id="genReportBtn">Generate Report</button>
-        </div>
-
+      <!-- ONBOARDING QUEUE -->
+      <section id="onboardingSection" class="section" style="display:none;">
+        <h2>Onboarding Queue</h2>
         <div class="panel">
-          <h3>Recent Activity</h3>
-          <table class="table compact">
+          <table class="table">
             <thead>
-              <tr><th>Date</th><th>Action</th><th>User</th><th>Result</th></tr>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Registered At</th>
+                <th>KYC Expiry</th>
+                <th>Action</th>
+              </tr>
             </thead>
-            <tbody id="recentActivityBody">
-              <tr><td colspan="4">No activity yet</td></tr>
+            <tbody id="onboardingTableBody">
+              <tr><td colspan="6">No data loaded</td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
-     <!-- MANAGE USERS -->
-<section id="usersSection" class="section" style="display:none;">
-  <div class="section-head">
-    <h2>KYC Queue</h2>
-    <p class="subtext">Review and verify customer KYC submissions</p>
-    <div class="filters">
-
-      <button class="filter-btn active" data-filter="SUBMITTED">Submitted</button>
-      <button class="filter-btn" data-filter="VERIFIED">Verified</button>
-      <button class="filter-btn" data-filter="REJECTED">Rejected</button>
-      <button id="reloadCustomers" class="action-btn small">Reload</button>
-
-    </div>
-  </div>
-
-  <div class="panel">
-
-    <table class="table" id="customerTable">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>DOB</th>
-          <th>Gender</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>View</th>
-        </tr>
-      </thead>
-      <tbody id="customerTableBody">
-        <tr><td colspan="8">No data loaded</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-</section>
-
-
-      <!-- ACCOUNTS -->
-      <section id="accountsSection" class="section" style="display:none;">
-        <h2>Accounts</h2>
+      <!-- KYC QUEUE -->
+      <section id="kycSection" class="section" style="display:none;">
+        <h2>KYC Queue</h2>
         <div class="panel">
-          <p>Account management (open, freeze, close) will appear here.</p>
-        </div>
-      </section>
-
-      <!-- TRANSACTIONS -->
-      <section id="transactionsSection" class="section" style="display:none;">
-        <h2>Transactions</h2>
-        <div class="panel">
-          <table class="table" id="transactionTable">
-            <thead><tr><th>ID</th><th>Account</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-            <tbody><tr><td colspan="6">No transactions</td></tr></tbody>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="kycTableBody">
+              <tr><td colspan="8">No data loaded</td></tr>
+            </tbody>
           </table>
         </div>
       </section>
 
-      <!-- LOANS -->
+      <!-- CUSTOMERS -->
+      <section id="customersSection" class="section" style="display:none;">
+        <h2>Customers</h2>
+        <div class="panel">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Customer Status</th>
+                <th>KYC Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="customersTableBody">
+              <tr><td colspan="6">No data loaded</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MANAGE USERS (ADMIN STAFF) -->
+      <section id="manageUsersSection" class="section" style="display:none;">
+        <h2>Manage Users</h2>
+        <div class="panel">
+          <button class="action-btn" id="createAdminBtn">Create New Admin</button>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTableBody">
+              <tr><td colspan="6">No admin users loaded</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- OTHER SECTIONS REMAIN SAME -->
+      <section id="accountsSection" class="section" style="display:none;">
+        <h2>Accounts</h2>
+        <div class="panel">Account management goes here.</div>
+      </section>
+
+      <section id="transactionsSection" class="section" style="display:none;">
+        <h2>Transactions</h2>
+        <div class="panel">Transaction monitoring goes here.</div>
+      </section>
+
       <section id="loansSection" class="section" style="display:none;">
         <h2>Loans</h2>
-        <div class="panel">Loan requests & approvals will appear here.</div>
+        <div class="panel">Loan management goes here.</div>
       </section>
 
-      <!-- REPORTS -->
       <section id="reportsSection" class="section" style="display:none;">
         <h2>Reports</h2>
-        <div class="panel">Charts and downloadable reports go here.</div>
+        <div class="panel">Reports and analytics go here.</div>
       </section>
 
-      <!-- NOTIFICATIONS -->
       <section id="notificationsSection" class="section" style="display:none;">
         <h2>Notifications</h2>
-        <div class="panel">
-          <form id="notifyForm">
-            <label>Send to (email or account no)</label>
-            <input id="notifyTo" required />
-            <label>Subject</label>
-            <input id="notifySubject" required />
-            <label>Message</label>
-            <textarea id="notifyMessage" rows="5" required></textarea>
-            <button type="submit" class="action-btn">Send</button>
-          </form>
-        </div>
+        <div class="panel">Notification system here.</div>
       </section>
 
-      <!-- SETTINGS -->
       <section id="settingsSection" class="section" style="display:none;">
         <h2>System Settings</h2>
-        <div class="panel">
-          <p>Manage admin staff, roles and audit logs from here.</p>
-        </div>
+        <div class="panel">Admin role & system config here.</div>
       </section>
 
     </main>
   </div>
 
- 
   <script src="../js/logout.js" defer></script>
   <script type="module" src="../js/admin/dashboard-init.js"></script>
 
