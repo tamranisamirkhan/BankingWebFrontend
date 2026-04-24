@@ -28,30 +28,29 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     .then(response => response.json().then(data => ({ status: response.status, body: data })))
     .then(({ status, body }) => {
 
-      // ✅ SUCCESS (your original logic preserved)
+      // ✅ SUCCESS (FIXED FOR NEW RESPONSE)
       if (status === 200 && body.status === "OK") {
 
-        if (body.data.role === "ADMIN") {
+        const role = body.data.role;
+
+        if (role === "ADMIN") {
           window.location.href = "../pages/admin-dashboard.html";
-        } else if (body.data.role === "CUSTOMER") {
+        } else if (role === "CUSTOMER") {
           window.location.href = "../pages/dashboard.html";
         } else {
           showError("Unknown role. Please contact support.");
         }
 
       } else {
-        // ❌ ONLY CHANGE → show error instead of alert
+        // ❌ ERROR
         showError(body.error || "Invalid username or password");
       }
     })
     .catch(error => {
       console.error("Error:", error);
-
-      // ❌ ONLY CHANGE → no popup
       showError("An error occurred. Please try again later.");
     });
 
-  // 🔴 helper
   function showError(message) {
     errorDiv.innerText = message;
     errorDiv.style.display = "block";
