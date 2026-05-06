@@ -14,8 +14,8 @@ export function setupNavigation(sectionMap, showSection, updateHeader, loadCusto
         showSection(sectionId);
         updateHeader(item.id);
 
-        // If Manage Users is clicked
-        if (item.id === "usersMenu") {
+        // ✅ FIXED: trigger KYC load
+        if (item.id === "kycMenu") {
           loadCustomers();
         }
       }

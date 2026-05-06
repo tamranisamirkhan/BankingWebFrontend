@@ -10,7 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sectionMap = {
     overviewMenu: "overviewSection",
-    usersMenu: "usersSection",
+    onboardingMenu: "onboardingSection",
+    kycMenu: "kycSection",                 // ✅ FIXED
+    customersMenu: "customersSection",
+    manageUsersMenu: "manageUsersSection",
     accountsMenu: "accountsSection",
     transactionsMenu: "transactionsSection",
     loansMenu: "loansSection",
@@ -20,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let currentFilter = "SUBMITTED";
-  loadCustomers(currentFilter);
 
+  // Load default (KYC data if needed later)
   highlightFilter(
     document.querySelectorAll(".filter-btn"),
     "SUBMITTED"
@@ -35,9 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupNavigation(
     sectionMap,
-    showSection,
-    updateHeader,
-    () => loadCustomers(currentFilter)
+    (sectionId) => {
+      showSection(sectionId);
+      updateHeaderFromSection(sectionId);
+
+      // ✅ Load KYC when KYC section opens
+      if (sectionId === "kycSection") {
+        loadCustomers(currentFilter);
+      }
+    },
+    updateHeader
   );
 
   setupFilters(
@@ -46,8 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     () => loadCustomers(currentFilter)
   );
 
+  // ✅ FIXED: bind to correct table
   document
-    .getElementById("customerTableBody")
+    .getElementById("kycTableBody")
     .addEventListener("click", e => {
       if (e.target.classList.contains("review-btn")) {
         const customerId = e.target.dataset.id;
@@ -68,4 +79,14 @@ function showSection(id) {
 function updateHeader(menuId) {
   document.getElementById("pageTitle").textContent =
     document.getElementById(menuId).textContent.trim();
+}
+
+// Optional helper
+function updateHeaderFromSection(sectionId) {
+  const menuMap = {
+    kycSection: "kycMenu"
+  };
+  if (menuMap[sectionId]) {
+    updateHeader(menuMap[sectionId]);
+  }
 }

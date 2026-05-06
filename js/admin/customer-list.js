@@ -1,7 +1,7 @@
 // customer-list.js
 
-export async function loadCustomers(currentFilter) {
-  const tableBody = document.getElementById("customerTableBody");
+export async function loadCustomers(currentFilter = "SUBMITTED") {
+  const tableBody = document.getElementById("kycTableBody"); // ✅ FIXED
   tableBody.innerHTML = "<tr><td colspan='8'>Loading...</td></tr>";
 
   try {
@@ -13,7 +13,7 @@ export async function loadCustomers(currentFilter) {
       credentials: "include"
     });
 
-    if (!res.ok) throw new Error("Failed to fetch customers");
+    if (!res.ok) throw new Error("Failed to fetch KYC data");
 
     const customers = await res.json();
     renderCustomers(customers);
@@ -22,23 +22,22 @@ export async function loadCustomers(currentFilter) {
   } catch (err) {
     console.error(err);
     tableBody.innerHTML =
-      "<tr><td colspan='8'>❌ Error loading customers</td></tr>";
+      "<tr><td colspan='8'>❌ Error loading KYC data</td></tr>";
     return [];
   }
 }
 
 export function renderCustomers(customers) {
-  const tableBody = document.getElementById("customerTableBody");
+  const tableBody = document.getElementById("kycTableBody"); // ✅ FIXED
   tableBody.innerHTML = "";
 
   if (!customers || !customers.length) {
     tableBody.innerHTML =
-      "<tr><td colspan='8'>No customers found</td></tr>";
+      "<tr><td colspan='8'>No KYC records found</td></tr>";
     return;
   }
 
   customers.forEach(c => {
-    // ✅ normalize ID (works for id or customerId)
     const customerId = c.customerId ?? c.id;
 
     if (!customerId) return;
